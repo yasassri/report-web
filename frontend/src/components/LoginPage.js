@@ -6,7 +6,6 @@ const LoginPage = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulated authentication logic (replace with actual authentication)
     if (username === 'admin' && password === 'password') {
       onLogin();
     } else {
@@ -17,28 +16,10 @@ const LoginPage = ({ onLogin }) => {
   return (
     <div className='container'>
       <div className='login-container'>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit" onClick={() => window.location.href = "/auth/login"}>Login</button>
-      </form>
+      <h1>Welcome to partner report generation portal.</h1>
+      <br/>
+      <p> Please login to continue if you have a registered account if not contact the Administrator.</p>
+      <button type="submit" onClick={() => window.location.href = "/auth/login"}>Login</button>
       </div>
     </div>
   );

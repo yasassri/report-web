@@ -200,7 +200,7 @@ code {
 }
 
 .login-container {
-  width: 300px;
+  width: 500px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -208,6 +208,7 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center; /* Align items horizontally in the center */
+  text-align: center;
 }
 
 .login-container h1 {
@@ -235,4 +236,27 @@ code {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.tool-pane {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+.tool-pane button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.tool-pane button:hover {
+  background-color: #0056b3;
 }

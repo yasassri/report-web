@@ -4,33 +4,24 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const ReportsPage = () => {
-  const [dropdownOptions, setDropdownOptions] = useState([]);
-  // const [reportType, setreportType] = useState("");
   const [selectedInterval, setSelectedInterval] = useState("HOUR");
   const [selectedAPI, setSelectedAPI] = useState("TransactionAPI");
   const [startTime, setStartTime] = useState(new Date('2024-04-17T00:00:00'));
   const [endTime, setEndTime] = useState(new Date('2024-04-20T00:00:00'));
   const [error, setError] = useState("");
-  const [downloadUrl, setDownloadUrl] = useState("");
-  const [options, setOptions] = useState([]); // State to store dropdown options
-  const [reportType, setreportType] = useState("Latency Report"); // State to store selected option
+  const [options, setOptions] = useState([]);
+  const [reportType, setreportType] = useState("Latency Report");
   const [htmlContent, setHtmlContent] = useState("");
-  const [reportGenerated, setReportGenerated] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-
-  // useEffect(() => {
-  //   fetchDropdownOptions("API");
-  // }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await axios.get('https://your-api-endpoint'); // Replace with your actual API endpoint
-        const data = await getAPIList(); // Assuming your API returns an array of options
+        const data = await getAPIList(); 
 
         const optionMap = data.map((element, index) => {
           return {
-            id: index + 1, // Start IDs from 1
+            id: index + 1,
             label: element,
             value: element,
           };
@@ -59,12 +50,12 @@ const ReportsPage = () => {
       setError("Start time must be before end time");
       return;
     }
-    console.log("Selected option:", reportType);
-    console.log("Selected interval:", selectedInterval);
-    console.log("Selected API:", selectedAPI);
-    console.log("Start time:", startTime);
-    console.log("End time:", endTime);
-    console.log(typeof startTime);
+    // console.log("Selected option:", reportType);
+    // console.log("Selected interval:", selectedInterval);
+    // console.log("Selected API:", selectedAPI);
+    // console.log("Start time:", startTime);
+    // console.log("End time:", endTime);
+    // console.log(typeof startTime);
     const data = await downloadReportZip(
       reportType,
       selectedInterval,
@@ -78,36 +69,29 @@ const ReportsPage = () => {
     // Set the flag to true indicating report is generated
     setShowPopup(true);
 
-    // setDownloadUrl(url);
-    // setError("");
-    // setreportType("");
-    // setSelectedInterval("");
-    // setSelectedAPI("");
-    // setStartTime(null);
-    // setEndTime(null);
+    setError("");
+    setreportType("");
+    setSelectedInterval("");
+    setSelectedAPI("");
+    setStartTime(null);
+    setEndTime(null);
   };
 
   const handleDownloadReport = () => {
-    // Create a Blob object from the HTML content
-    const blob = new Blob([htmlContent], { type: "text/html" });
 
-    // Create a temporary URL for the Blob object
+    const blob = new Blob([htmlContent], { type: "text/html" });
     const url = window.URL.createObjectURL(blob);
 
-    // Create a link element to trigger the download
     const link = document.createElement("a");
     link.href = url;
     link.setAttribute("download", "Report.html");
     document.body.appendChild(link);
 
-    // Simulate a click on the link to start the download
     link.click();
 
-    // Cleanup
     document.body.removeChild(link);
     window.URL.revokeObjectURL(url);
 
-    // Close the popup window
     setShowPopup(false);
   };
 
@@ -204,7 +188,7 @@ const ReportsPage = () => {
           />
         </div>
         <br/>
-        <div className="date-picker-container">
+        <div>
           <label style={{ display: "block", marginBottom: "5px" }}>
             End Time:
           </label>
@@ -267,9 +251,7 @@ const ReportsPage = () => {
           </div>
         </>
       )}
-      {/* Main page content */}
       <div className={showPopup ? 'main-content disabled' : 'main-content'}>
-        {/* Main page content here */}
       </div>
       </div>
     </div>
