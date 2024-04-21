@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const { log } = require("../utils/logger");
 
-const ANALYTICS_API_URL = "http://localhost:3001/api/v1";
+const ANALYTICS_API_URL = process.env.ANALYTICS_API_URL; //"http://localhost:3001/api/v1";
 
 const getAPIList = async () => {
   try {

@@ -1,0 +1,7 @@
+version: 0.1
+
+endpoints:
+  - name: "Report API"
+    port: 8080
+    networkVisibility: Public
+    context: /
