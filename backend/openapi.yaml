@@ -1,0 +1,93 @@
+openapi: 3.0.0
+info:
+  title: Report Generation API
+  description: API for generating reports
+  version: 1.0.0
+servers:
+  - url: /api/v1/
+paths:
+  /report:
+    get:
+      summary: Generate Report
+      description: |
+        Generate a report based on provided parameters.
+      parameters:
+        - in: query
+          name: granularity
+          description: The granularity of the report (e.g., minute, hour, day)
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: apiName
+          description: The name of the API
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: startDate
+          description: The start date for the report (YYYY-MM-DD)
+          required: true
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: startTime
+          description: The start time for the report (HH:MM:SS)
+          required: true
+          schema:
+            type: string
+            format: time
+        - in: query
+          name: endDate
+          description: The end date for the report (YYYY-MM-DD)
+          required: true
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: endTime
+          description: The end time for the report (HH:MM:SS)
+          required: true
+          schema:
+            type: string
+            format: time
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            text/html:
+              schema:
+                type: string
+                example: |
+                  <!DOCTYPE html>
+                  <html>
+                    <head>
+                      <title>Report</title>
+                    </head>
+                    <body>
+                      <h1>Report Generated Successfully</h1>
+                      <p>This is a sample report.</p>
+                    </body>
+                  </html>
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+  /apis:
+    get:
+      summary: Get API List
+      description: |
+        Get the list of available APIs.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["TransactionAPI","CoverageAPI"]
+        '500':
+          description: Internal server error
