@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <title>API Latency Report</title>
+    <style type="text/css">
+        select {
+            width: 25em;
+        }
+
+        h1,
+        h2 {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 300
+        }
+
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.2;
+            letter-spacing: -.1rem
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            line-height: 1.25;
+            letter-spacing: -.1rem
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            background-color: #f2e5ff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            overflow-x: auto;
+            white-space: nowrap;
+            min-width: 1400px;
+        }
+
+        .chartWrapper {
+            /* position: fixed; */
+            /* align-items: center; */
+            /* width: 80%;
+            height: 30%; */
+            width: 1300px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 20px;
+            border: solid 2px rgba(54, 162, 235, 1);
+            background: rgb(255, 255, 254);
+        }
+
+        .polarChartWrapper {
+            /* position: fixed; */
+            /* align-items: center; */
+            width: 500px;
+            margin: auto;
+            padding: 0px;
+            margin: 0ch;
+            border-radius: 20px;
+            border: solid 2px rgba(54, 162, 235, 1);
+            background: rgb(255, 255, 254);
+        }
+
+        .barChartWrapper {
+            /* position: fixed; */
+            /* align-items: center; */
+            width: 900px;
+            margin: auto;
+            padding: 0px;
+            margin: 0px;
+            border-radius: 20px;
+            border: solid 2px rgba(54, 162, 235, 1);
+            background: rgb(255, 255, 254);
+        }
+
+        .myDiv {
+            /* border: 5px outset red; */
+            background-color: rgb(243, 243, 243);
+            text-align: center;
+            align-items: center;
+            /* display: flex; */
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .filter-styled-table {
+            font-family: sans-serif;
+            font-size: 1.1em;
+            border-collapse: collapse;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            /* position: sticky; */
+
+        }
+
+        /* .filter-styled-table tr {
+          text-align: center;
+          vertical-align: middle;
+        } */
+
+        .styled-table {
+            font-family: sans-serif;
+            font-size: 1.1em;
+            border-collapse: collapse;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            position: sticky;
+
+        }
+
+        .styled-table td,
+        th {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .styled-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .styled-table tr:hover {
+            background-color: #ddd;
+        }
+
+        .styled-table th {
+            padding-left: 10px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #7143f1;
+            color: white;
+        }
+
+        .data-table {
+            font-family: sans-serif;
+            font-size: 0.8em;
+            border-collapse: collapse;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            text-align: center;
+        }
+
+        .data-table th {
+            padding-left: 10px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #7143f1;
+            color: white;
+            text-align: center;
+        }
+
+        .data-table td,
+        tr th {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        #ApiNameInput {
+            /* background-image: url('/css/searchicon.png');
+background-position: 10px 10px; */
+            /* background-repeat: no-repeat; */
+            /* width: 50%; */
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        .button-2 {
+            background-color: #edc1ff;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            color: #000000;
+            cursor: pointer;
+            font-family: arial, sans-serif;
+            font-size: 14px;
+            height: 36px;
+            line-height: 27px;
+            min-width: 54px;
+            padding: 0 16px;
+            text-align: center;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: pre;
+        }
+
+        .button-2:hover {
+            border-color: #9c9c9c;
+            box-shadow: rgba(0, 0, 0, .2) 0 2px 2px;
+            color: #202124;
+        }
+
+        .select {
+            /* border: none;
+            outline: none; */
+            background: #c7c7c7;
+            border-radius: 5px;
+            margin: 5px;
+            text-align: center;
+            /* width: 100%;  */
+            padding: 8px 0px 10px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            /* color: #714BB9; */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="myDiv" class="myDiv">
+        <h1> :::: API Latency Report :::: </h1>
+
+        <!-- <h2>Report Info</h2> -->
+        <table class="styled-table" style="width:50%">
+            <tr>
+                <th colspan="2" style="text-align: center;">Report Details</th>
+            </tr>
+            <tr>
+                <td>Report Time</td>
+                <td>From: Sun, 04 Jun 2023 05:00:00 GMT To: Fri, 09 Jun 2023 04:59:59 GMT</td>
+            </tr>
+            <tr>
+                <td>Data Granularity</td>
+                <td>MINUTE</td>
+            </tr>
+            <tr>
+                <td>Report Generated on</td>
+                <td>Fri Jun 09 2023 14:39:38 GMT-0500 (Central Daylight Time)</td>
+            </tr>
+        </table>
+        <br /><br />
+        <!-- <h2>Overall Summary</h2> -->
+        <table class="styled-table" style="width:50%">
+            <tr>
+                <th colspan="2" style="text-align: center;">Overall Summary</th>
+            </tr>
+            <tr>
+                <td>API Name</td>
+                <td>TransactionAPI</td>
+            </tr>
+            <tr>
+                <td>Number of Applications</td>
+                <td>11</td>
+            </tr>
+            <tr class="active-row">
+                <td>Total Number of Requests</td>
+                <td>442,554</td>
+            </tr>
+        </table>
+        <br /><br />
+        <h2>Overall Latencies for Applications</h2>
+        <table id="AppDataTable" class="data-table" style="width:70%">
+        </table>
+
+        <br /><br />
+        </div>
+    </div>
+
+    <script>
+        const granularity = 'MINUTE';
+        const appMap = {"2148":{"name":"MobileApp","avgResponseTime":1003.03,"maxResponseTime":35917,"minResponseTime":5,"requestCount":54439},"2150":{"name":"CustomerApp","avgResponseTime":816.59,"maxResponseTime":37800,"minResponseTime":5,"requestCount":157882},"2153":{"name":"PartnerApp","avgResponseTime":1337.83,"maxResponseTime":34210,"minResponseTime":26,"requestCount":118277},"2162":{"name":"ReliancePartnerAPP", "avgResponseTime":766.4,"maxResponseTime":13327,"minResponseTime":338,"requestCount":3713},"2164":{"name":"ExpressAPP","avgResponseTime":756.69,"maxResponseTime":32726,"minResponseTime":4,"requestCount":22996},"2166":{"name":"AmericanExpressAPP","avgResponseTime":1321.85,"maxResponseTime":32699,"minResponseTime":23,"requestCount":32627},"2168":{"name":"ConsumerAPP","avgResponseTime":1262.57,"maxResponseTime":30359,"minResponseTime":358,"requestCount":826},"2229":{"name":"PNC","avgResponseTime":989.21,"maxResponseTime":30199,"minResponseTime":19,"requestCount":38135},"2268":{"name":"AmazonSIS","avgResponseTime":809.56,"maxResponseTime":31067,"minResponseTime":4,"requestCount":13602},"2387":{"name":"USIPDev","avgResponseTime":864.7,"maxResponseTime":1472,"minResponseTime":395,"requestCount":40},"2394":{"name":"AnypointPartner","avgResponseTime":216.91,"maxResponseTime":1142,"minResponseTime":11,"requestCount":17}};
+
+        populateAppTable();
+
+        function populateAppTable() {
+            var tableRows = '<thead><tr><th colspan="9">Application Summary</th></tr><tr><th style="text-align: center;">Application Name</th><th>Average Latency</th> \
+                <th>Min Latency</th><th>Max Latency</th><th>Request Count</th></tr></thead><tbody>';
+            for (let app of Object.keys(appMap)) {
+                tableRows += "<tr><td>" + appMap[app].name + "</td><td>" + appMap[app].avgResponseTime.toLocaleString('en-US') +
+                    "</td><td>" + appMap[app].minResponseTime.toLocaleString('en-US') + "</td><td>" + appMap[app].maxResponseTime.toLocaleString('en-US') + "</td><td>" + appMap[app].requestCount.toLocaleString('en-US') + "</td></tr>"
+            }
+            document.getElementById("AppDataTable").innerHTML = tableRows + '</tbody>';
+        }
+
+    </script>
+</body>
+
+</html>
