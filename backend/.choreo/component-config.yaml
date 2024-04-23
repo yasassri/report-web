@@ -29,8 +29,8 @@ spec:
       - from: ServiceURL
         to: ANALYTICS_API_URL
       - from: ConsumerKey
-        to: CHOREO_OAUTH_CLIENT_SECRET
-      - from: ConsumerSecret
         to: CHOREO_OAUTH_CLIENT_ID
+      - from: ConsumerSecret
+        to: CHOREO_OAUTH_CLIENT_SECRET
       - from: TokenURL
         to: CHOREO_OAUTH_TOKEN_URL

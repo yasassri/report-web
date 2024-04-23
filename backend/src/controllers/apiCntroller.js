@@ -79,7 +79,7 @@ async function generateReport(req, res) {
       headers: {
           'Authorization': `Bearer ${accessToken}`,
       }});
-    log.info(response.data);
+    // log.info(response.data);
     let report = await generateReportContent(response.data, granularity, apiName, startDate, startTime, endDate, endTime);
     return report;
   } catch (error) {
