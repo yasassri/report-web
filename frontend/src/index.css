@@ -136,7 +136,7 @@ code {
 }
 
 .popup button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
 .close-button {
@@ -161,9 +161,9 @@ code {
   border: 1px solid #cccccc; /* Light gray border */
   border-radius: 5px;
   box-sizing: border-box;
-  appearance: none; /* Remove default dropdown arrow */
-  -webkit-appearance: none; /* Remove default dropdown arrow for Safari */
-  -moz-appearance: none; /* Remove default dropdown arrow for Firefox */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; 
 }
 
 .dropdown-container select:focus {
@@ -207,7 +207,7 @@ code {
   background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Align items horizontally in the center */
+  align-items: center;
   text-align: center;
 }
 
@@ -285,3 +285,59 @@ code {
 .toolbar button:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
+
+.navbar {
+  background: linear-gradient(to left, #002b1c, #008b5a, #00e192); 
+  color: #fff; 
+  padding: 5px; /* Add padding */
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between;
+  align-items: center; /* Center items vertically */
+  border-radius: -5px; /* Rounded edges */
+  box-shadow: 5px 2px 4px rgba(67, 67, 67, 0.1); /* Shadow effect */
+}
+
+.navbar-brand {
+  color: #000000;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-left: 20px;
+  font-family: OCR A Std, monospace;
+  text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.5);
+}
+
+.navbar-links {
+  list-style-type: none; /* Remove bullet points from list */
+  margin-right: 20px; /* Add margin to the right of links */
+}
+
+.navbar-links li {
+  display: inline; /* Display links inline */
+  margin-right: 15px; /* Add margin between links */
+}
+
+.navbar-links li:last-child {
+  margin-right: 0; /* Remove margin from last link */
+}
+
+.logout-button {
+  background-color: #5a9adf;
+  /* color: #007bff; */
+  border: 2px solid #1960ab8c;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #9cd6f2;
+  /* color: #fff; */
+}
+
+.load  {
+  padding-left: 120px;
+  padding-top: 10px;
+}
+

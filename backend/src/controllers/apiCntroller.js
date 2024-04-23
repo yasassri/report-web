@@ -70,7 +70,7 @@ async function readFileContent(filePath) {
 
 async function generateReport(req, res) {
   try {
-
+    
     const { granularity, apiName, startDate, startTime, endDate, endTime } = req.params;
     const url = `${ANALYTICS_API_URL}/api/v1/data/summary/${granularity}/${apiName}/${startDate}/${startTime}/${endDate}/${endTime}`;
     const accessToken = await getAccessToken();

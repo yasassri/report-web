@@ -17,7 +17,6 @@ const getAPIList = async () => {
 
 const downloadReportZip = async (reportType, selectedInterval, selectedAPI, startTime, endTime) => {
   try {
-
     const granularity = selectedInterval.toLowerCase();
     const apiName = selectedAPI;
     const startDateF = startTime.toISOString().slice(0, 10);

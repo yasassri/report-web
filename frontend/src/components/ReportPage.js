@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { getAPIList, downloadReportZip } from "../services/ReportService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import loadingSpinner from "../loading.gif";
 
 const ReportsPage = () => {
+  const [loading, setLoading] = useState(false);
   const [selectedInterval, setSelectedInterval] = useState("HOUR");
   const [selectedAPI, setSelectedAPI] = useState("TransactionAPI");
   const [startTime, setStartTime] = useState(new Date('2024-04-17T00:00:00'));
@@ -36,18 +38,17 @@ const ReportsPage = () => {
     fetchData();
   }, []);
 
-  const handleChange = (event) => {
-    //setreportType(event.target.value);
-  };
-
   const validateTimeRange = () => {
     return startTime < endTime;
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
+    setShowPopup(true);
     if (!validateTimeRange()) {
       setError("Start time must be before end time");
+      setLoading(false);
       return;
     }
     // console.log("Selected option:", reportType);
@@ -75,6 +76,7 @@ const ReportsPage = () => {
     setSelectedAPI("");
     setStartTime(null);
     setEndTime(null);
+    setLoading(false);
   };
 
   const handleDownloadReport = () => {
@@ -205,37 +207,27 @@ const ReportsPage = () => {
           />
         </div>
         <div className="button-container">
-        <button
-          type="submit"
-          style={{
-            width: "100%",
-            padding: "10px",
-            backgroundColor: "#007bff",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
-          Submit
-        </button>
+          <button
+            type="submit"
+            style={{
+              width: "100%",
+              padding: "10px",
+              backgroundColor: "#007bff",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+            disabled={loading}
+          >
+            Submit
+          </button>
         </div>
+        {/* Error message */}
         {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
-      {showPopup && (
-        <div className="popup">
-          <button className="close-button" onClick={handleClosePopup}>
-            &times;
-          </button>
-          <br/><br/>
-          <p>Report generated successfully!</p>
-          <div className="button-container">
-          <button onClick={handleDownloadReport}>Download Report</button>
-          <br/>
-          </div>
-        </div>
-      )}
 
+      {/* Popup */}
       {showPopup && (
         <>
           <div className="overlay"></div>
@@ -244,18 +236,24 @@ const ReportsPage = () => {
               &times;
             </button>
             <br/><br/>
-            <p>Report generated successfully!</p>
+            {loading ? (
+              <div className="load">
+                <img src={loadingSpinner} alt="Loading..." style={{ width: "60px" }} />
+              </div>
+            ) : (
+              <p>Report generated successfully!</p>
+            )}
             <div className="button-container">
-            <button onClick={handleDownloadReport}>Download Report</button>
+              {!loading && (
+                <button onClick={handleDownloadReport}>Download Report</button>
+              )}
+              <br/>
             </div>
           </div>
         </>
       )}
-      <div className={showPopup ? 'main-content disabled' : 'main-content'}>
-      </div>
-      </div>
     </div>
-  );
-};
+  </div>
+)};
 
 export default ReportsPage;

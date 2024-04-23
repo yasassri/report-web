@@ -51,14 +51,19 @@ function App() {
       {loading ? null : (
         <>
           {loggedIn && (
-            <div className="toolbar">
-              <div>Hello, {userDetails.username}. Welcome to the Partner Report Portal</div>
-              <button onClick={handleLogout}>Logout</button>
-            </div>
+            <div className="navbar">
+            <div className="navbar-brand">Welcome to the Partner Report Portal</div>
+            <ul className="navbar-links">
+              <li>You are loggedin as: {userDetails.username} </li>
+              <li><button  className='logout-button' onClick={handleLogout}>Logout</button></li>
+            </ul>
+          </div>
           )}
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/report" element={loggedIn ? <ReportPage /> : <Navigate to="/login" />} />
+            {/* <Route path="/report" element={<ReportPage />} /> */}
+
             <Route path="/" element={<Navigate to="/login" />} />
           </Routes>
         </>
