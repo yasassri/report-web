@@ -4,7 +4,7 @@ const authenticate = require('./authController')
 
 const { log } = require("../utils/logger");
 
-const ANALYTICS_API_URL = process.env.ANALYTICS_API_URL; //"http://localhost:3001/api/v1";
+const ANALYTICS_API_URL = process.env.ANALYTICS_API_URL; //"http://localhost:3001";
 const tokenUrl = process.env.CHOREO_OAUTH_TOKEN_URL;
 const clientId = process.env.CHOREO_OAUTH_CLIENT_ID;
 const clientSecret = process.env.CHOREO_OAUTH_CLIENT_SECRET;

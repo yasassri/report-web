@@ -6,7 +6,7 @@ info:
 servers:
   - url: /api/v1/
 paths:
-  /report:
+  /api/v1/report:
     get:
       summary: Generate Report
       description: |
@@ -74,7 +74,7 @@ paths:
           description: Bad request
         '500':
           description: Internal server error
-  /apis:
+  /api/v1/apis:
     get:
       summary: Get API List
       description: |
