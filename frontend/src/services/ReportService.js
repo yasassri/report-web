@@ -6,8 +6,7 @@ const REPORT_API_URL = window?.configs?.serviceURL ? window.configs.serviceURL :
 const getAPIList = async () => {
 
     try {
-      const response = await axios.get(`${REPORT_API_URL}/api/v1/apis/apis`);
-      console.log("XXXXXXXXXXX : " + response.data)
+      const response = await axios.get(`${REPORT_API_URL}/api/v1/apis`);
       return response.data;
     } catch (error) {
       console.error('Error fetching APIs:', error);

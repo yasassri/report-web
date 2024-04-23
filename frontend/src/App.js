@@ -1,25 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
 import ReportPage from './components/ReportPage';
 import Cookies from 'js-cookie';
-
-
-const FakeLoginPage = () => {
-  return (
-    <div>
-      <button
-        onClick={() => {
-          const value = process.env.REACT_APP_USER_INFO_COOKIE || "";
-          Cookies.set("userinfo", value);
-          window.location.pathname = "/report";
-        }}
-      >
-        login-quickly
-      </button>
-    </div>
-  );
-};
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -28,17 +11,6 @@ function App() {
 
   useEffect(() => {
     let isUserInfoSet = false;
-    if (process.env.NODE_ENV === 'development') {
-      // Mock the authentication flow
-      const mockUserInfo = { username: 'testuser', name: 'Test User' };
-      localStorage.setItem('userDetails', JSON.stringify(mockUserInfo));
-      isUserInfoSet = true;
-    } else {
-      // Mock the authentication flow
-      const mockUserInfo = { username: 'testuser', name: 'Test User' };
-      localStorage.setItem('userDetails', JSON.stringify(mockUserInfo));
-      isUserInfoSet = true;
-    }
 
     const storedUserDetails = localStorage.getItem('userDetails');
     if (storedUserDetails) {
@@ -50,7 +22,6 @@ function App() {
 
     if (!isUserInfoSet) {
       const encodedUserInfo = Cookies.get('userinfo');
-      console.log("XXXXXXXXXXXXXXXXXXXXXXX")
       if (encodedUserInfo) {
         const userInfo = JSON.parse(atob(encodedUserInfo));
         setUserDetails(userInfo);
@@ -76,19 +47,20 @@ function App() {
     Cookies.remove('userinfo', { path: '/' });
   };
 
-
-  const handleLogin = () => {
-    // Simulated authentication logic (replace with actual authentication)
-    setLoggedIn(true);
-  };
   return (
     <Router>
-    <Routes>
-      <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-      <Route path="/report" element={setLoggedIn ? <ReportPage /> : <Navigate to="/login" />} />
-      <Route path="/" element={<Navigate to="/login" />} />
-    </Routes>
-  </Router>
+        {loggedIn && (
+          <div className="toolbar">
+            <div>Hello, {userDetails.username}</div>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        )}   
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/report" element={loggedIn ? <ReportPage /> : <Navigate to="/login" />} />
+          <Route path="/" element={<Navigate to="/login" />} />
+        </Routes>
+    </Router>
   );
 }
 

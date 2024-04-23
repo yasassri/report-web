@@ -260,3 +260,28 @@ code {
 .tool-pane button:hover {
   background-color: #0056b3;
 }
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #09b433;
+  color: white;
+}
+
+.toolbar .user-info {
+  margin-right: 10px;
+}
+
+.toolbar button {
+  padding: 8px 16px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.toolbar button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
