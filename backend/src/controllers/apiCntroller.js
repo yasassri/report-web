@@ -25,7 +25,7 @@ const getAPIList = async () => {
   try {
     const accessToken = await getAccessToken();
 
-    const response = await axios.get(`${ANALYTICS_API_URL}/apis`, {
+    const response = await axios.get(`${ANALYTICS_API_URL}/api/v1/apis`, {
       headers: {
           'Authorization': `Bearer ${accessToken}`,
       }});

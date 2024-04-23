@@ -3,51 +3,50 @@ info:
   title: Report Generation API
   description: API for generating reports
   version: 1.0.0
-servers:
-  - url: /api/v1/
 paths:
-  /api/v1/report:
+  /api/v1/report/{granularity}/{apiName}/{startDate}/{startTime}/{endDate}/{endTime}:
     get:
       summary: Generate Report
       description: |
         Generate a report based on provided parameters.
       parameters:
-        - in: query
-          name: granularity
-          description: The granularity of the report (e.g., minute, hour, day)
+        - name: granularity
+          in: path
+          description: Granularity of the data (hour or day)
           required: true
           schema:
             type: string
-        - in: query
-          name: apiName
-          description: The name of the API
+            enum: [hour, day]
+        - name: apiName
+          in: path
+          description: Name of the API
           required: true
           schema:
             type: string
-        - in: query
-          name: startDate
-          description: The start date for the report (YYYY-MM-DD)
+        - name: startDate
+          in: path
+          description: Start date of the data range (YYYY-MM-DD)
           required: true
           schema:
             type: string
             format: date
-        - in: query
-          name: startTime
-          description: The start time for the report (HH:MM:SS)
+        - name: startTime
+          in: path
+          description: Start time of the data range (HH:mm:ss)
           required: true
           schema:
             type: string
             format: time
-        - in: query
-          name: endDate
-          description: The end date for the report (YYYY-MM-DD)
+        - name: endDate
+          in: path
+          description: End date of the data range (YYYY-MM-DD)
           required: true
           schema:
             type: string
             format: date
-        - in: query
-          name: endTime
-          description: The end time for the report (HH:MM:SS)
+        - name: endTime
+          in: path
+          description: End time of the data range (HH:mm:ss)
           required: true
           schema:
             type: string
