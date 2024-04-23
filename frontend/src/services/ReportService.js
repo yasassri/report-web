@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const REPORT_API_URL = window.configs.apiUrl;
+const REPORT_API_URL = window?.configs?.serviceURL ? window.configs.serviceURL : "/";
 
 
 const getAPIList = async () => {
