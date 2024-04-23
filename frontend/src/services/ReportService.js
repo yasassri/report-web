@@ -1,13 +1,12 @@
 import axios from 'axios';
 
-// Replace `APPOINTMENT_SERVICE_URL` with the actual URL of your appointments service
-const REPORT_API_URL = 'http://localhost:8080/api/v1';
+const REPORT_API_URL = window.configs.apiUrl;
 
 
 const getAPIList = async () => {
 
     try {
-      const response = await axios.get(`${REPORT_API_URL}/apis`);
+      const response = await axios.get(`${REPORT_API_URL}/api/v1/apis/apis`);
       console.log("XXXXXXXXXXX : " + response.data)
       return response.data;
     } catch (error) {
@@ -27,7 +26,7 @@ const downloadReportZip = async (reportType, selectedInterval, selectedAPI, star
     const endDateF = endTime.toISOString().slice(0, 10);
     const endTimeF = endTime.toISOString().slice(11, 16);
     
-    const response = await axios.get(`${REPORT_API_URL}/report/${granularity}/${apiName}/${startDateF}/${startTimeF}/${endDateF}/${endTimeF}`, {
+    const response = await axios.get(`${REPORT_API_URL}/api/v1/report/${granularity}/${apiName}/${startDateF}/${startTimeF}/${endDateF}/${endTimeF}`, {
       responseType: 'blob' 
     });
 
