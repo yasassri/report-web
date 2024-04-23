@@ -8,20 +8,6 @@ const port = 8080;
 
 app.use(cors());
 
-async function getAccessToken() {
-  const tokenUrl = process.env.APPOINTMENTS_OAUTH_TOKEN_URL;
-  const clientId = process.env.APPOINTMENTS_OAUTH_CLIENT_ID;
-  const clientSecret = process.env.APPOINTMENTS_OAUTH_CLIENT_SECRET;
-
-  try {
-      const accessToken = await authenticate(tokenUrl, clientId, clientSecret);
-      return accessToken;
-  } catch (error) {
-      console.error('Error obtaining access token:', error);
-      throw error; // Rethrow the error to handle it in the calling context
-  }
-}
-
 app.use('/api/v1', getRoutes);
 
 // Catch all errors

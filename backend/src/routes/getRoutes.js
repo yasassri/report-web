@@ -10,9 +10,9 @@ router.get('/apis', async (req, res) => {
 });
 
 
-router.get('/report', async (req, res) => {
+router.get('/report/:granularity/:apiName/:startDate/:startTime/:endDate/:endTime', async (req, res) => {
 
-    const { granularity, apiName, startDate, startTime, endDate, endTime } = req.query;
+    const { granularity, apiName, startDate, startTime, endDate, endTime } = req.params;
     if (!granularity || !apiName || !startDate || !startTime || !endDate || !endTime) {
         return res.status(400).json({ error: 'Missing query parameters' });
     }

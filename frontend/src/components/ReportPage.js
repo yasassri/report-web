@@ -144,7 +144,7 @@ const ReportsPage = () => {
             required
           >
             <option value="">Select an interval</option>
-            <option value="MINUTE">MINUTE</option>
+            <option value="MINUTE" disabled>MINUTE</option>
             <option value="HOUR">HOUR</option>
             <option value="DAY">DAY</option>
           </select>
@@ -204,7 +204,7 @@ const ReportsPage = () => {
             required
           />
         </div>
-        <div class="button-container">
+        <div className="button-container">
         <button
           type="submit"
           style={{
@@ -229,7 +229,7 @@ const ReportsPage = () => {
           </button>
           <br/><br/>
           <p>Report generated successfully!</p>
-          <div class="button-container">
+          <div className="button-container">
           <button onClick={handleDownloadReport}>Download Report</button>
           <br/>
           </div>
@@ -245,7 +245,7 @@ const ReportsPage = () => {
             </button>
             <br/><br/>
             <p>Report generated successfully!</p>
-            <div class="button-container">
+            <div className="button-container">
             <button onClick={handleDownloadReport}>Download Report</button>
             </div>
           </div>

@@ -19,16 +19,15 @@ const getAPIList = async () => {
 
 const downloadReportZip = async (reportType, selectedInterval, selectedAPI, startTime, endTime) => {
   try {
+
+    const granularity = selectedInterval.toLowerCase();
+    const apiName = selectedAPI;
+    const startDateF = startTime.toISOString().slice(0, 10);
+    const startTimeF = startTime.toISOString().slice(11, 16);
+    const endDateF = endTime.toISOString().slice(0, 10);
+    const endTimeF = endTime.toISOString().slice(11, 16);
     
-    const response = await axios.get(`${REPORT_API_URL}/report`, {
-      params: {
-        'granularity': selectedInterval.toLowerCase(),
-        'apiName': selectedAPI,
-        'startDate': startTime.toISOString().slice(0, 10),
-        'startTime': startTime.toISOString().slice(11, 16),
-        'endDate': endTime.toISOString().slice(0, 10),
-        'endTime': endTime.toISOString().slice(11, 16)    
-      },
+    const response = await axios.get(`${REPORT_API_URL}/report/${granularity}/${apiName}/${startDateF}/${startTimeF}/${endDateF}/${endTimeF}`, {
       responseType: 'blob' 
     });
 

@@ -171,15 +171,15 @@
             </tr>
             <tr>
                 <td>Time Window</td>
-                <td>From: Sun, 04 Jun 2023 05:00:00 GMT To: Fri, 09 Jun 2023 04:59:59 GMT</td>
+                <td>From: {{fromDate}} To: {{toDate}}</td>
             </tr>
             <tr>
                 <td>Data Granularity</td>
-                <td>MINUTE</td>
+                <td>{{GRANULARITY}}</td>
             </tr>
             <tr>
                 <td>Report Generated on</td>
-                <td>Fri Jun 09 2023 14:39:38 GMT-0500 (Central Daylight Time)</td>
+                <td>{{date}}</td>
             </tr>
         </table>
         <br /><br />
@@ -190,15 +190,15 @@
             </tr>
             <tr>
                 <td>API Name</td>
-                <td>TransactionAPI</td>
+                <td>{{ API_NAME }}</td>
             </tr>
             <tr>
                 <td>Number of Applications</td>
-                <td>11</td>
+                <td>{{ TOTAL_APPS }}</td>
             </tr>
             <tr class="active-row">
                 <td>Total Number of Requests</td>
-                <td>442,554</td>
+                <td>{{ TOTAL_REQ }}</td>
             </tr>
         </table>
         <br /><br />
@@ -212,16 +212,16 @@
 
     <script>
         const granularity = 'MINUTE';
-        const appMap = {"2148":{"name":"MobileApp","avgResponseTime":1003.03,"maxResponseTime":35917,"minResponseTime":5,"requestCount":54439},"2150":{"name":"CustomerApp","avgResponseTime":816.59,"maxResponseTime":37800,"minResponseTime":5,"requestCount":157882},"2153":{"name":"PartnerApp","avgResponseTime":1337.83,"maxResponseTime":34210,"minResponseTime":26,"requestCount":118277},"2162":{"name":"ReliancePartnerAPP", "avgResponseTime":766.4,"maxResponseTime":13327,"minResponseTime":338,"requestCount":3713},"2164":{"name":"ExpressAPP","avgResponseTime":756.69,"maxResponseTime":32726,"minResponseTime":4,"requestCount":22996},"2166":{"name":"AmericanExpressAPP","avgResponseTime":1321.85,"maxResponseTime":32699,"minResponseTime":23,"requestCount":32627},"2168":{"name":"ConsumerAPP","avgResponseTime":1262.57,"maxResponseTime":30359,"minResponseTime":358,"requestCount":826},"2229":{"name":"PNC","avgResponseTime":989.21,"maxResponseTime":30199,"minResponseTime":19,"requestCount":38135},"2268":{"name":"AmazonSIS","avgResponseTime":809.56,"maxResponseTime":31067,"minResponseTime":4,"requestCount":13602},"2387":{"name":"USIPDev","avgResponseTime":864.7,"maxResponseTime":1472,"minResponseTime":395,"requestCount":40},"2394":{"name":"AnypointPartner","avgResponseTime":216.91,"maxResponseTime":1142,"minResponseTime":11,"requestCount":17}};
+        const appMap = {{ APP_MAP }};
 
         populateAppTable();
 
         function populateAppTable() {
             var tableRows = '<thead><tr><th colspan="9">Application Summary</th></tr><tr><th style="text-align: center;">Application Name</th><th>Average Latency</th> \
                 <th>Min Latency</th><th>Max Latency</th><th>Request Count</th></tr></thead><tbody>';
-            for (let app of Object.keys(appMap)) {
-                tableRows += "<tr><td>" + appMap[app].name + "</td><td>" + appMap[app].avgResponseTime.toLocaleString('en-US') +
-                    "</td><td>" + appMap[app].minResponseTime.toLocaleString('en-US') + "</td><td>" + appMap[app].maxResponseTime.toLocaleString('en-US') + "</td><td>" + appMap[app].requestCount.toLocaleString('en-US') + "</td></tr>"
+            for (let app of appMap) {
+                tableRows += "<tr><td>" + app.applicationName + "</td><td>" + app.averageResponse.toLocaleString('en-US') +
+                    "</td><td>" + app.minResponseTime.toLocaleString('en-US') + "</td><td>" + app.maxResponseTime.toLocaleString('en-US') + "</td><td>" + app.reqCount.toLocaleString('en-US') + "</td></tr>"
             }
             document.getElementById("AppDataTable").innerHTML = tableRows + '</tbody>';
         }
