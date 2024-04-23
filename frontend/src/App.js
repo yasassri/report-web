@@ -33,7 +33,6 @@ function App() {
     setLoading(false);
   }, []);
 
-
   const handleLogout = () => {
     // Clear any stored user information
     setUserDetails({});
@@ -49,17 +48,21 @@ function App() {
 
   return (
     <Router>
-        {loggedIn && (
-          <div className="toolbar">
-            <div>Hello, {userDetails.username}</div>
-            <button onClick={handleLogout}>Logout</button>
-          </div>
-        )}   
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/report" element={loggedIn ? <ReportPage /> : <Navigate to="/login" />} />
-          <Route path="/" element={<Navigate to="/login" />} />
-        </Routes>
+      {loading ? null : (
+        <>
+          {loggedIn && (
+            <div className="toolbar">
+              <div>Hello, {userDetails.username}. Welcome to the Partner Report Portal</div>
+              <button onClick={handleLogout}>Logout</button>
+            </div>
+          )}
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/report" element={loggedIn ? <ReportPage /> : <Navigate to="/login" />} />
+            <Route path="/" element={<Navigate to="/login" />} />
+          </Routes>
+        </>
+      )}
     </Router>
   );
 }
